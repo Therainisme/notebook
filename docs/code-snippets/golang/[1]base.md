@@ -92,3 +92,88 @@ import . “fmt”
 `defer`是在函数将要被销毁时调用，所以是先返回返回值，再执行`defer`语句
 
 ![](./pasteimg/2021-05-05-23-13-50.png)
+
+## 数组
+
+长度不可变
+
+```go
+var array [4]int; 
+array2 := [5]int{1, 2, 3, 4}
+
+func getArray(a [4]int) {
+    // 此时的a是值拷贝
+}
+```
+
+## slice（可变数组）
+
+```go
+var array []int = make([]int, 3)
+```
+
+## 实现面向对象
+
+### 继承
+
+```go {13-19}
+package main
+
+import "fmt"
+
+type Father struct {
+	Name string
+}
+// 这里带*意味着传递过来的就是一个指针了
+func (that *Father) Run() {
+	fmt.Printf("Father <%s> running....\n", that.Name)
+}
+
+type Son struct {
+	Father
+}
+
+func (that *Son) Run() {
+	fmt.Printf("Son <%s> running....\n", that.Name)
+}
+
+func main() {
+	var father Father = Father{"FFF"}
+	var son Son
+	son.Name = "SSS"
+	father.Run()
+	son.Run()
+}
+
+```
+
+### 多态
+
+```go
+// 本质是一个指针
+type Person interface {
+	Run()
+}
+
+// 多态
+var person Person = &father
+person.Run()
+person = &son
+person.Run()
+```
+
+## 通⽤万能类型 & 类型推断
+
+像Java的Object一样
+
+`int`、`string`、`float32`、`float64`、`struct` .... 都实现了`interface{}`
+
+
+```go
+value, ok := arg(string)
+if !ok {
+    fmt.Println("it is not string type")
+} else {
+    // 是
+}
+```
