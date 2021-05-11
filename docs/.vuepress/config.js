@@ -41,8 +41,11 @@ module.exports = {
             '/database/': getSidebar('database'),
             '/algorithm/': getSidebar('algorithm'),
             '/waste-paper/': getSidebar('waste-paper'),
-            '/code-snippets/': [
-               ]
+            '/code-snippets/': [{
+                title: 'Java',
+                collapsable: false,
+                children: getSidebar('code-snippets/java')
+            }]
         },
         sidebarDepth: 3, // 目录深度
         lastUpdated: '上次更新时间', // 上次更新
