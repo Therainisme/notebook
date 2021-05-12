@@ -22,8 +22,7 @@ function getSidebar(folder) {
     const sidebar = [];
     pages.sort(function(a, b) {
         //todo 等学了正则再回来改吧....
-        console.log(a.substr(0, a.indexOf('.')))
-        a.substr(0, a.indexOf('.')) * 1 - b.substr(0, b.indexOf('.')) * 1
+        return a.substr(0, a.indexOf('.')) * 1 - b.substr(0, b.indexOf('.')) * 1
     });
     pages.forEach((md) => {
         const title = readMDFileTitle(`docs/${folder}/${md}`);
