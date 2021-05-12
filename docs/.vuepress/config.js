@@ -45,11 +45,10 @@ module.exports = {
                 title: 'Java',
                 collapsable: false,
                 children: getSidebar('code-snippets/java')
-            },{
+            }, {
                 title: '未分类',
                 children: getSidebar('code-snippets/other')
-            }
-        ]
+            }]
         },
         sidebarDepth: 3, // 目录深度
         lastUpdated: '上次更新时间', // 上次更新
@@ -69,6 +68,15 @@ module.exports = {
                 // 启用 TeX 支持
                 tex: true,
             },
+            '@vuepress/last-updated',
+            {
+                transformer: (timestamp, lang) => {
+                    // 不要忘了安装 moment
+                    const moment = require('moment')
+                    moment.locale(lang)
+                    return moment(timestamp).fromNow()
+                }
+            }
         ],
     ],
     locales: {
