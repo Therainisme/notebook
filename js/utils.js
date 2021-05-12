@@ -22,10 +22,10 @@ function getSidebar(folder) {
     const sidebar = [];
     pages.sort(function(a, b) {
         //todo 等学了正则再回来改吧....
-        return a.match(/\[(.+)\]/g)[0].replace('[', '').replace(']', '') * 1 - b.match(/\[(.+)\]/g)[0].replace('[', '').replace(']', '') * 1
+        console.log(a.substr(0, a.indexOf('.')))
+        a.substr(0, a.indexOf('.')) * 1 - b.substr(0, b.indexOf('.')) * 1
     });
     pages.forEach((md) => {
-        const name = md.substring(0, md.length - 3)
         const title = readMDFileTitle(`docs/${folder}/${md}`);
         sidebar.push({
             title,
