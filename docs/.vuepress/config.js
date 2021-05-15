@@ -42,13 +42,24 @@ module.exports = {
             '/algorithm/': getSidebar('algorithm'),
             '/waste-paper/': getSidebar('waste-paper'),
             '/code-snippets/': [{
-                title: 'Java',
-                collapsable: false,
-                children: getSidebar('code-snippets/java')
-            }, {
-                title: '未分类',
-                children: getSidebar('code-snippets/other')
-            }]
+                    title: 'Java',
+                    collapsable: false,
+                    children: getSidebar('code-snippets/java')
+                },
+                {
+                    title: 'TypeScript',
+                    collapsable: false,
+                    children: getSidebar('code-snippets/typescript')
+                },
+                {
+                    title: 'Docker',
+                    collapsable: false,
+                    children: getSidebar('code-snippets/docker')
+                }, {
+                    title: '未分类',
+                    children: getSidebar('code-snippets/other')
+                }
+            ]
         },
         sidebarDepth: 3, // 目录深度
         lastUpdated: '上次更新时间', // 上次更新
