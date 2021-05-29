@@ -41,19 +41,17 @@ module.exports = {
             '/database/': getSidebar('database'),
             '/algorithm/': getSidebar('algorithm'),
             '/waste-paper/': getSidebar('waste-paper'),
-            '/code-snippets/': [{
-                    title: 'Java',
-                    collapsable: false,
-                    children: getSidebar('code-snippets/java')
-                },
+            '/code-snippets/': [
                 {
                     title: 'TypeScript',
                     collapsable: false,
                     children: getSidebar('code-snippets/typescript')
+                },{
+                    title: 'Java',
+                    children: getSidebar('code-snippets/java')
                 },
                 {
                     title: 'Docker',
-                    collapsable: false,
                     children: getSidebar('code-snippets/docker')
                 }, {
                     title: '未分类',
