@@ -17,27 +17,28 @@ module.exports = {
     themeConfig: {
         // 添加导航栏
         nav: [{
-                text: '理论技术',
-                items: [
-                    { text: '代码片段', link: '/code-snippets/index' },
-                    { text: '数据库系统概论', link: '/database/1.绪论' },
-                ]
-            },
-            {
-                text: '划水技术',
-                items: [
-                    { text: '算法', link: '/algorithm/99.竞赛中常用的C++黑魔法' },
-                ]
-            },
-            {
-                text: '废纸篓',
-                items: [
-                    { text: 'Java', link: '/waste-paper/1.java' },
-                ]
-            },
+            text: '理论技术',
+            items: [
+                { text: '代码片段', link: '/code-snippets/index' },
+                { text: '算法', link: '/algorithm/99.竞赛中常用的C++黑魔法' },
+            ]
+        },
+        {
+            text: '划水技术',
+            items: [
+                { text: '杂题记录', link: '/question/1.先导' },
+            ]
+        },
+        {
+            text: '废纸篓',
+            items: [
+                { text: 'Java', link: '/waste-paper/1.java' },
+            ]
+        },
         ],
         // 为以下路由添加侧边栏
         sidebar: {
+            '/question/': getSidebar('question'),
             '/database/': getSidebar('database'),
             '/algorithm/': getSidebar('algorithm'),
             '/waste-paper/': getSidebar('waste-paper'),
@@ -46,7 +47,7 @@ module.exports = {
                     title: 'TypeScript',
                     collapsable: false,
                     children: getSidebar('code-snippets/typescript')
-                },{
+                }, {
                     title: 'Java',
                     children: getSidebar('code-snippets/java')
                 },
