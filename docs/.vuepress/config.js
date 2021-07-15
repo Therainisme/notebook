@@ -39,10 +39,14 @@ module.exports = {
         // 为以下路由添加侧边栏
         sidebar: {
             '/question/': getSidebar('question'),
-            '/database/': getSidebar('database'),
             '/algorithm/': getSidebar('algorithm'),
             '/waste-paper/': getSidebar('waste-paper'),
             '/code-snippets/': [
+                {
+                    title: 'JavaScript',
+                    collapsable: false,
+                    children: getSidebar('code-snippets/javascript')
+                },
                 {
                     title: 'TypeScript',
                     collapsable: false,
