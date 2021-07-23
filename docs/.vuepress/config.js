@@ -20,7 +20,7 @@ module.exports = {
                 text: '理论技术',
                 items: [
                     { text: '代码片段', link: '/code-snippets/index' },
-                    { text: '算法', link: '/algorithm/99.竞赛中常用的C++黑魔法' },
+                    { text: '算法', link: '/algorithm/1.每日一题' },
                 ]
             },
             {
