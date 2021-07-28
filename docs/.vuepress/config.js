@@ -27,6 +27,7 @@ module.exports = {
                 text: '划水技术',
                 items: [
                     { text: '杂题记录', link: '/question/1.先导' },
+                    { text: '环境保护大使', link: '/linux/1.ubuntu' },
                     { text: 'Interview', link: '/interview/2.css' }
                 ]
             },
@@ -39,6 +40,7 @@ module.exports = {
         ],
         // 为以下路由添加侧边栏
         sidebar: {
+            '/linux/': getSidebar('linux'),
             '/interview/': getSidebar('interview'),
             '/question/': getSidebar('question'),
             '/algorithm/': getSidebar('algorithm'),
