@@ -19,6 +19,7 @@ module.exports = {
         nav: [{
                 text: '天书',
                 items: [
+                    { text: 'React', link: '/react/1.state' },
                     { text: '代码片段', link: '/code-snippets/index' },
                     { text: '算法', link: '/algorithm/1.每日一题' },
                 ]
@@ -41,6 +42,7 @@ module.exports = {
         ],
         // 为以下路由添加侧边栏
         sidebar: {
+            '/react/': getSidebar('react'),
             '/utils/': getSidebar('utils'),
             '/linux/': getSidebar('linux'),
             '/interview/': getSidebar('interview'),
