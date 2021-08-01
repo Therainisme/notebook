@@ -17,7 +17,7 @@ module.exports = {
     themeConfig: {
         // 添加导航栏
         nav: [{
-                text: '理论技术',
+                text: '天书',
                 items: [
                     { text: '代码片段', link: '/code-snippets/index' },
                     { text: '算法', link: '/algorithm/1.每日一题' },
@@ -28,7 +28,8 @@ module.exports = {
                 items: [
                     { text: '杂题记录', link: '/question/1.先导' },
                     { text: '环境保护大使', link: '/linux/1.ubuntu' },
-                    { text: 'Interview', link: '/interview/2.css' }
+                    { text: 'Interview', link: '/interview/2.css' },
+                    { text: '便民工程', link: '/utils/1.pandoc' }
                 ]
             },
             {
@@ -40,6 +41,7 @@ module.exports = {
         ],
         // 为以下路由添加侧边栏
         sidebar: {
+            '/utils/': getSidebar('utils'),
             '/linux/': getSidebar('linux'),
             '/interview/': getSidebar('interview'),
             '/question/': getSidebar('question'),
