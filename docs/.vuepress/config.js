@@ -20,6 +20,7 @@ module.exports = {
                 text: '天书',
                 items: [
                     { text: 'React', link: '/react/-1.hooks' },
+                    { text: 'Golang', link: '/golang/1.随记' },
                     { text: '代码片段', link: '/code-snippets/index' },
                     { text: '算法', link: '/algorithm/1.每日一题' },
                 ]
