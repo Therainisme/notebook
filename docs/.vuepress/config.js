@@ -44,6 +44,7 @@ module.exports = {
         // 为以下路由添加侧边栏
         sidebar: {
             '/react/': getSidebar('react'),
+            '/golang/': getSidebar('golang'),
             '/utils/': getSidebar('utils'),
             '/linux/': getSidebar('linux'),
             '/interview/': getSidebar('interview'),
