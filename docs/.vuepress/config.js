@@ -38,11 +38,13 @@ module.exports = {
                 text: '废纸篓',
                 items: [
                     { text: 'Java', link: '/waste-paper/1.java' },
+                    { text: '计算机网络理论', link: '/waste-paper/computer-network/4.network' },
                 ]
             },
         ],
         // 为以下路由添加侧边栏
         sidebar: {
+            '/waste-paper/computer-network/': getSidebar('waste-paper/computer-network'),
             '/react/': getSidebar('react'),
             '/golang/': getSidebar('golang'),
             '/utils/': getSidebar('utils'),
@@ -73,7 +75,7 @@ module.exports = {
                 }
             ]
         },
-        sidebarDepth: 3, // 目录深度
+        sidebarDepth: 6, // 目录深度
         lastUpdated: '上次更新时间', // 上次更新
         smoothScroll: true, // 页面滚动,
         // 编辑页面链接
