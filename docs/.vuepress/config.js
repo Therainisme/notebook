@@ -31,7 +31,8 @@ module.exports = {
                     { text: '杂题记录', link: '/question/1.先导' },
                     { text: '环境保护大使', link: '/linux/1.ubuntu' },
                     { text: 'Interview', link: '/interview/2.css' },
-                    { text: '偷懒技术', link: '/utils/1.pandoc' }
+                    { text: '偷懒技术', link: '/utils/1.pandoc' },
+                    { text: 'English', link: '/English/1.CET6' }
                 ]
             },
             {
