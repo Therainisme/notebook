@@ -21,8 +21,10 @@ function getSidebar(folder) {
     let pages = getPages(`docs/${folder}`);
     const sidebar = [];
     pages.sort(function(a, b) {
-        //todo 等学了正则再回来改吧....
-        return a.substr(0, a.lastIndexOf('.')) * 1 - b.substr(0, b.lastIndexOf('.')) * 1
+        let regexp = /\d*\./;
+        let aStr = regexp.exec(a)[0]
+        let bStr = regexp.exec(b)[0]
+        return aStr.substring(0, aStr.lastIndexOf(".")) * 1 - bStr.substring(0, bStr.lastIndexOf(".")) * 1
     });
     pages.forEach((md) => {
         const title = readMDFileTitle(`docs/${folder}/${md}`);
