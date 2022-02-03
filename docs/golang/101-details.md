@@ -342,3 +342,178 @@ func g([]int) {}
 println("%T\n", f) // "func(...int)"
 println("%T\n", g) // "func([]int)"
 ```
+
+#### defer
+
+defer 语句经常被用于处理成对的操作，如打开、关闭、连接、断开连接、加锁、释放锁。通过defer机制，不论函数逻辑多复杂，都能保证在任何执行路径下，资源被释放。
+
+调试复杂程序时，defer 机制也常被用于记录何时进入和退出函数。通过这种方式， 我们可以只通过一条语句控制函数的入口和所有的出口，甚至可以记录函数的运行时间，如例子中的 start。
+
+```go
+func bigSlowOperation() {
+    // 注意末尾的括号
+    // defer 接收的是一个函数，在外层函数时会帮你调用
+    // 而 trace 函数返回的是一个函数
+    defer trace("bigSlowOperation")() 
+
+    // do lots of work
+    time.Sleep(10 * time.Second)
+}
+
+func trace(msg string) func() {
+    start := time.Now()
+    log.Printf("enter %s", msg)
+
+    return func() {
+        log.Printf("exit %s (%s)", msg, time.Since(start))
+    }
+}
+```
+
+defer 语句中的函数会在 return 语句更新返回值后再执行。所以，对匿名函数采用 defer 机制，可以观察函数的返回值。
+
+```go
+func double(x int) (result int) {
+    defer func() {
+        fmt.Printf("double(%d) = %d\n", x, result)
+    }
+
+    return x*x
+}
+```
+
+被延迟执行的匿名函数甚至可以修改函数返回给调用者的返回值。
+
+```go
+func triple(x int) (result int) {
+    defer func() {
+        result += x
+    }
+
+    return double(x)
+}
+```
+
+在**循环体**中的 defer 语句需要特别注意，因为只有在函数执行完毕后，这些被延迟的函数才会执行。下面的代码会导致系统的文件描述符耗尽。
+
+```go
+for _, filename := range filenamse {
+    f, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    defer f.Close()
+
+    // do something
+}
+```
+
+一种解决方法是将循环体中的 defer 语句一致另外一个函数，在每次循环时，调用这个函数。
+
+```go
+for _, filename := range filenames {
+    if err := doFile(filename); err != nil {
+        return err
+    }
+}
+
+func doFile(filename string) error {
+    f, err := os.Open(filename)
+    if err != nil {
+        return err
+    }
+    defer f.Close()
+
+    // do something
+}
+```
+
+#### panic
+
+当 panic 异常发生时，程序会中断运行，并立即执行在该 goroutine 中被延迟的函数（defer 机制）。
+
+当某些不应该发生的场景发生时，我们就应该调用 panic。
+
+虽然 Go 的 panic 机制类似于其他语言的异常，但 panic 的适用场景有一些不同。由于 panic 会引起程序的崩溃，因此 panic 一般用于严重错误，如程序内部的逻辑不一致。在健壮的程序中，任何可以预料到的错误，如不正确的输入、错误的配置或是失败的I/O操作都应该被优雅的处理，最好的处理方式，就是使用Go的错误机制。
+
+在 GO 的 panic 机制中，延迟函数的调用在释放堆栈信息之前。
+
+通常来说，不应该对 panic 异常做任何处理，但有时，也许我们可以从异常中恢复，至少我们可以在程序崩溃前，做一些操作。举个例子，当web服务器遇到不可预料的严重问题时，在崩溃前应该将所有的连接关闭；如果不做任何处理，会使得客户端一直处于等待状态。
+
+如果在 deferred 函数中调用了内置函数 recover，并且定义该 defer 语句的函数发生了 panic 异常，recover 会使程序从 panic 中恢复，并返回 panic value。导致 panic 异常的函数不会继续运行，但能正常返回。在未发生 panic 时调用 recover，recover 会返回 nil。
+
+```go
+func Parse(input string) (s *Syntax, err error) {
+    defer func() {
+        if p := recover(); p != nil {
+            err = fmt.Errorf("internal error: %v", p)
+        }
+    }
+
+    // may panic
+}
+```
+
+不加区分的恢复所有的 panic 异常，不是可取的做法。虽然把对panic的处理都集中在一个包下，有助于简化对复杂和不可以预料问题的处理，但作为被广泛遵守的规范，**你不应该试图去恢复其他包引起的 panic**。
+
+公有的API应该将函数的运行失败作为 error 返回，而不是 panic。同样的，你也不应该恢复一个由他人开发的函数引起的 panic，比如说调用者传入的回调函数，因为你无法确保这样做是安全的。
+
+基于以上原因，安全的做法是有选择性的 recover。
+
+```go
+func soleTitle(doc *html.Node) (title string, err error) {
+    type bailout struct{}
+
+    defer func() {
+        switch p := recover(); p {
+        case nil:       // no panic
+        case bailout{}: // "expected" panic
+            err = fmt.Errorf("multiple title elements")
+        default:
+            panic(p) // unexpected panic; carry on panicking
+        }
+    }()
+    // do something
+    // and then 
+    // panic(bailout{})
+}
+```
+
+### 方法
+
+只有类型（Point）和指向它们的指针（*Point），才可能是出现在接收器声明里的两种接收器。此外，为了避免起义，在声明方法时，如果一个类型名本身是一个指针的话，是不允许其出现在接收器中的。
+
+```go
+type P *int
+
+// compile error: invalid receiver type
+func (P) f() {/**/}
+```
+
+在声明一个 method 的 receiver 该是指针类型还是非指针类型时，需要考虑这个对象本身是不是特别大。如果声明为非指针变量时，调用会产生一次拷贝。还需要考虑是否需要进行修改，因为指针类型指向的始终是一块内存地址。
+
+#### nil 也是一个合法的接收器类型
+
+```go
+type IntList struct {
+    Value int
+    Tail *IntList
+}
+
+func (list *IntList) Sum() int {
+    if list == nil {
+        return 0
+    }
+    return list.Value + list.Tail.Sum()
+}
+```
+
+方法值和函数值类似，但是赋值时就会绑定了调用对象。
+
+```go
+a := Point{1, 2}
+b := Point{4, 6}
+
+distanceFromA := a.Distance
+println(distanceFromA(b))
+```
