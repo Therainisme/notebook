@@ -517,3 +517,153 @@ b := Point{4, 6}
 distanceFromA := a.Distance
 println(distanceFromA(b))
 ```
+
+### 接口
+
+一个类型如果拥有一个接口需要的所有方法，那么这个类型就实现了这个接口。
+
+`fmt.Stringer` 接口需要实现 `String() string`
+
+```go
+type IntSet struct{}
+
+func (s *IntSet) String() string {
+	return ""
+}
+
+var s IntSet
+var _ fmt.Stringer = &s // 可以
+var _ fmt.Stringer = s  // 缺少 String 方法
+```
+
+即使具体类型有其他的方法，也只有接口类型暴露出来的方法会被调用到。
+
+接口像是指针，下面 4 个语句中，变量 w 得到了 3 个不同的值。（开始和最后的值是相同的）
+
+```go
+var w io.Writer
+w = os.Stdout
+w = new(bytes.Buffer)
+w = nil
+```
+
+![](./image/2022-02-03-16-26-22.png)
+
+![](./image/2022-02-03-16-26-33.png)
+
+![](./image/2022-02-03-16-26-43.png)
+
+从概念上讲，不论接口值多大，动态值总是可以容下它。
+
+![](./image/2022-02-03-16-27-02.png)
+
+接口值可以使用 `==` 和 `!＝` 来进行比较。两个接口值相等仅当它们都是 `nil` 值，或者它们的动态类型相同并且动态值也根据这个动态类型的==操作相等。因为接口值是可比较的，所以它们可以用在 `map` 的键或者作为 `switch` 语句的操作数。
+
+然而，如果两个接口值的动态类型相同，但是这个动态类型**是不可比较**的（比如切片），将它们进行比较就会失败并且panic:
+
+```go
+var x interface{} = []int{1, 2, 3}
+fmt.Println(x == x) // panic: comparing uncomparable type []int
+```
+
+#### 警告：一个包含nil指针的接口不是nil接口
+
+一个不包含任何值的 nil 接口值和一个刚好包含 nil 指针的接口值是不同的。
+
+当 debug 变量设置为 true 时，main 函数会将 f函数的输出收集到一个 bytes.Buffer 类型中。
+
+```go
+const debug = true
+
+func main() {
+    var buf *bytes.Buffer
+    if debug {
+        buf = new(bytes.Buffer) // enable collection of output
+    }
+    f(buf) // NOTE: subtly incorrect!
+    if debug {
+        // ...use buf...
+    }
+}
+
+// If out is non-nil, output will be written to it.
+func f(out io.Writer) {
+    // ...do something...
+    if out != nil {
+        out.Write([]byte("done!\n"))
+    }
+}
+```
+
+可能会预计当把变量 debug 设置为 false 时可以禁止对输出的收集，但是实际上在 out.Write 方法调用时程序发生了 panic：
+
+```go
+if out != nil {
+    out.Write([]byte("done!\n")) // panic: nil pointer dereference
+}
+```
+
+当 `main` 函数调用函数f 时，它给 f函数的 `out` 参数赋了一个 `*bytes.Buffer` 的空指针，所以 `out` 的动态值是 `nil`。然而，它的动态类型是 `*bytes.Buffer`，意思就是 `out` 变量是一个包含空指针值的非空接口，所以防御性检查 `out!=nil` 的结果依然是 `true`。
+
+![](./image/2022-02-03-16-25-59.png)
+
+动态分配机制依然决定 `(*bytes.Buffer).Write` 的方法会被调用，但是这次的接收者的值是 `nil`。对于一些如 `*os.File` 的类型，`nil` 是一个有效的接收者，但是 `*bytes.Buffer` 类型不在这些种类中。这个方法会被调用，但是当它尝试去获取缓冲区时会发生 `panic`。
+
+#### sort.Interface
+
+利用结构体回调实现多层排序函数。
+
+```go
+type customSort struct {
+    t    []*Track
+    less func(x, y *Track) bool
+}
+
+func (x customSort) Len() int           { return len(x.t) }
+func (x customSort) Less(i, j int) bool { return x.less(x.t[i], x.t[j]) }
+func (x customSort) Swap(i, j int)    { x.t[i], x.t[j] = x.t[j], x.t[i] }
+```
+
+```go
+sort.Sort(customSort{tracks, func(x, y *Track) bool {
+    if x.Title != y.Title {
+        return x.Title < y.Title
+    }
+    if x.Year != y.Year {
+        return x.Year < y.Year
+    }
+    if x.Length != y.Length {
+        return x.Length < y.Length
+    }
+    return false
+}})
+```
+
+#### 断言
+
+如果断言操作的对象是一个 `nil` 接口值，那么不论被断言的类型是什么这个类型断言都会失败。一般断言是这么使用的。
+
+```go
+if f, ok := w.(*os.File); ok {
+    // use f
+}
+```
+
+#### 通过类型断言查询接口
+
+```go
+func writeString(w io.Writer, s string) (n int, err error) {
+
+    // 想看看 w 这个值里有没有 WriteString 方法
+    // io.Writer 类型肯定没有，但是 w 可能有
+    type stringWriter interface {
+        WriteString(string) (n int, err error)
+    }
+
+    // 断言，断言成功则代表 w 里有 WriteString 方法
+    if sw, ok := w.(stringWriter); ok {
+        return sw.WriteString(s) 
+    }
+    return w.Write([]byte(s)) 
+}
+```
