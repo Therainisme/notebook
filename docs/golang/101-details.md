@@ -206,7 +206,7 @@ map 上的大部分操作，包括查找、删除、len 和 range 循环都可�
 if age, ok := ages["bob"]; !ok { /* ... */ }
 ```
 
-和 slice 一样，map 之间也不能进行相等比较，唯一的例外是可以和 nil 进行比较。
+和 slice 一样，**map 之间也不能进行相等比较**，唯一的例外是可以和 nil 进行比较。
 
 ### 结构体
 
@@ -667,3 +667,117 @@ func writeString(w io.Writer, s string) (n int, err error) {
     return w.Write([]byte(s)) 
 }
 ```
+
+### goroutine
+
+channel 对应一个 `make` 创建的底层数据结构的引用。当我们复制一个 channel 或用于函数参数传递时，我们只是拷贝了一个 channel 引用，因此调用者和被调用者将引用同一个 channel 对象。和其它的引用类型一样，channel 的零值也是 `nil`。
+
+两个相同类型的 `channel` 可以使用==运算符比较。如果两个 `channel` 引用的是相同的对象，那么比较的结果为 `true`。
+
+当一个 channel 被关闭后，再向该 channel 发送数据将导致 panic 异常。当一个被关闭的 channel 中已经发送的数据都被成功接收后，后续的接收操作将不再阻塞，它们会立即返回一个零值。
+
+试图重复关闭一个 channel 将导致 panic 异常，试图关闭一个 nil 值的 channel 也将导致 panic 异常。
+
+没有办法直接测试一个 channel 是否被关闭，但是接收操作有一个变体形式：它多接收一个结果，多接收的第二个结果是一个布尔值 `ok`，`true` 表示成功从 channels 接收到值，`false` 表示 channels 已经被关闭并且里面没有值可接收。
+
+```go
+x, ok := <-naturals
+if !ok {
+    break // channel was closed and drained
+}
+```
+
+使用 range 循环，它依次从 channel 接收数据，当 channel 被关闭并且没有值可接收时跳出循环。
+
+```go
+func main() {
+    naturals := make(chan int)
+    squares := make(chan int)
+
+    // Counter
+    go func() {
+        for x := 0; x < 100; x++ {
+            naturals <- x
+        }
+        close(naturals)
+    }()
+
+    // Squarer
+    go func() {
+        for x := range naturals {
+            squares <- x * x
+        }
+        close(squares)
+    }()
+
+    // Printer (in main goroutine)
+    for x := range squares {
+        fmt.Println(x)
+    }
+}
+```
+
+基于 channels 发送消息有两个重要方面。首先每个消息都有一个值，但是有时候通讯的事实和发生的时刻也同样重要。当我们更希望强调通讯发生的时刻时，我们将它称为消息事件。有些消息事件并不携带额外的信息，它仅仅是用作两个 goroutine 之间的同步，这时候我们可以用 `struct{}` 空结构体作为 channels 元素的类型，虽然也可以使用 `bool` 或 `int` 类型实现同样的功能，`done <- 1` 语句也比 `done <- struct{}{}` 更短。
+
+#### 管道
+
+Channels 也可以用于将多个 goroutine 连接在一起，一个 Channel 的输出作为下一个 Channel 的输入。这种串联的 Channels 就是所谓的管道（pipeline）。
+
+![](./image/2022-02-04-14-54-46.png)
+
+#### 单方向的 channel
+
+类型 `chan<- int` 表示一个只发送 `int` 的channel，只能发送不能接收。相反，类型 `<-chan int` 表示一个只接收 `int` 的channel，只能接收不能发送。
+
+因为关闭操作只用于断言不再向 channel 发送新的数据，所以只有在发送者所在的 goroutine 才会调用 close 函数，因此对一个只接收的 channel 调用 `close` 将是一个编译错误。
+
+```go
+func counter(out chan<- int) {
+    for x := 0; x < 100; x++ {
+        out <- x
+    }
+    close(out)
+}
+
+func squarer(out chan<- int, in <-chan int) {
+    for v := range in {
+        out <- v * v
+    }
+    close(out)
+}
+
+func printer(in <-chan int) {
+    for v := range in {
+        fmt.Println(v)
+    }
+}
+
+func main() {
+    naturals := make(chan int)
+    squares := make(chan int)
+    go counter(naturals)
+    go squarer(squares, naturals)
+    printer(squares)
+}
+```
+
+#### select
+
+`ch` 这个 channel 的 buffer 大小是 1，所以会交替的为空或为满，所以只有一个 case 可以进行下去，无论i是奇数或者偶数，它都会打印 `0 2 4 6 8`。
+
+（`0` 塞进去了，`1` 不能塞进去，此时这次 select 就输出了 2，`i = 1`就被用于输出了）
+
+```go
+ch := make(chan int, 1)
+for i := 0; i < 10; i++ {
+    select {
+    case x := <-ch:
+        fmt.Println(x) // "0" "2" "4" "6" "8"
+    case ch <- i:
+    }
+}
+```
+
+如果多个 case 同时就绪时，**select 会随机地选择一个执行**，这样来保证每一个 channel 都有平等的被 select 的机会。
+
+在 select 语句中操作 nil 的 channel 永远都不会被 select 到。这使得可以用 nil 来激活或者禁用 case，来达成处理其它输入或输出事件时超时和取消的逻辑。
