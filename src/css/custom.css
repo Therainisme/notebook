@@ -37,3 +37,7 @@ code {
 .theme-code-block {
     box-shadow: none !important;
 }
+
+html {
+    font-family: "Noto Sans CJK SC", "思源黑体 CN";
+}

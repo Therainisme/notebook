@@ -57,6 +57,11 @@ const config = {
                 },
                 items: [
                     {
+                        to: '/blog/2022/2/6/NIO',
+                        label: 'Blog',
+                        position: 'left'
+                    },
+                    {
                         to: "/docs/golang/GETRequest",
                         activeBasePath: '/docs/golang',
                         label: "Golang",
