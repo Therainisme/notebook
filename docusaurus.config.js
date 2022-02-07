@@ -57,7 +57,7 @@ const config = {
                 },
                 items: [
                     {
-                        to: '/blog/2022/2/6/NIO',
+                        to: '/blog/2022/2/7/GoMemo',
                         label: 'Blog',
                         position: 'left'
                     },
