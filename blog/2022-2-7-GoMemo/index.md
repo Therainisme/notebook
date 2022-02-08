@@ -339,7 +339,7 @@ func (memo *Memo) server(f Func) {
             go e.call(f, req.key)
         }
 
-        // 非首次进入
+        // 获取结果
         go e.deliver(req.response)
     }
 }
