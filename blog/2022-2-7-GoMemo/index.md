@@ -4,7 +4,9 @@ authors: [Therainisme]
 tags: [Go]
 ---
 
-接下来将使用下面的 httpGetBody 函数作为需要缓存的函数的一个样例。这个函数会去进行 HTTP GET 请求，并获取 HTTP 响应 Body。对于这个函数的调用开销是比较大的，现在想对每一个 URL 进行的 HTTP GET 请求的结果保存下来。
+接下来将使用下面的 httpGetBody 作为需要缓存的函数的一个样例。它会去进行 HTTP GET 请求，并获取 HTTP 响应 Body。对于这个函数的调用开销是比较大的，现在想对每一个 URL 进行的 HTTP GET 请求的结果保存下来。
+
+<!--truncate-->
 
 它大概是长这个样子的。
 
@@ -365,4 +367,4 @@ func (e *entry) deliver(response chan<- result) {
 
 ## 参考
 
-[Go 语言程序设计——实例：并发的非阻塞缓存](https://books.studygolang.com/gopl-zh/ch9/ch9-07.html)
+* [Go 语言程序设计——实例：并发的非阻塞缓存](https://books.studygolang.com/gopl-zh/ch9/ch9-07.html)
