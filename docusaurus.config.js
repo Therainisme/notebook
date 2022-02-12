@@ -34,6 +34,8 @@ const config = {
                     showReadingTime: true,
                     // Please change this to your repo.
                     editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+                    remarkPlugins: [math],
+                    rehypePlugins: [katex],
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
@@ -103,9 +105,10 @@ const config = {
         }),
     stylesheets: [
         {
-            href: 'https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css',
+            href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+            type: 'text/css',
             integrity:
-                'sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc',
+                'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
             crossorigin: 'anonymous',
         },
     ],
