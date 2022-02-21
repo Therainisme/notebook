@@ -23,7 +23,8 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "rehype-katex": "5",
-    "remark-math": "3"
+    "remark-math": "3",
+    "tdesign-react": "^0.25.1"
   },
   "browserslist": {
     "production": [
