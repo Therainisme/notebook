@@ -1130,7 +1130,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.16.5", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.16.5", "@babel/runtime@^7.17.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.17.2"
   resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.17.2.tgz#66f68591605e59da47523c631416b18508779941"
   integrity sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw==
@@ -1169,6 +1169,230 @@
   dependencies:
     "@babel/helper-validator-identifier" "^7.16.7"
     to-fast-properties "^2.0.0"
+
+"@codemirror/autocomplete@^0.19.0":
+  version "0.19.13"
+  resolved "https://registry.npmmirror.com/@codemirror/autocomplete/-/autocomplete-0.19.13.tgz#33253750605ffa94a8880636df514fa49821485f"
+  integrity sha512-fI6lgTH2PlyTQqF2eWKDRBRUC+9MqvS2TfvE7aJ4Pu1oHM1w8JI16J9Qvwrd0iabJeF/QodU51Clok98c7fpCQ==
+  dependencies:
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/state" "^0.19.4"
+    "@codemirror/text" "^0.19.2"
+    "@codemirror/tooltip" "^0.19.12"
+    "@codemirror/view" "^0.19.0"
+    "@lezer/common" "^0.15.0"
+
+"@codemirror/basic-setup@^0.19.1":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/basic-setup/-/basic-setup-0.19.1.tgz#17b27d02f15c628eb62a85d01e3e1b1958933eb4"
+  integrity sha512-gLjD7YgZU/we6BzS/ecCmD3viw83dsgv5ZUaSydYbYx9X4w4w9RqYnckcJ+0GDyHfNr5Jtfv2Z5ZtFQnBj0UDA==
+  dependencies:
+    "@codemirror/autocomplete" "^0.19.0"
+    "@codemirror/closebrackets" "^0.19.0"
+    "@codemirror/commands" "^0.19.0"
+    "@codemirror/comment" "^0.19.0"
+    "@codemirror/fold" "^0.19.0"
+    "@codemirror/gutter" "^0.19.0"
+    "@codemirror/highlight" "^0.19.0"
+    "@codemirror/history" "^0.19.0"
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/lint" "^0.19.0"
+    "@codemirror/matchbrackets" "^0.19.0"
+    "@codemirror/rectangular-selection" "^0.19.0"
+    "@codemirror/search" "^0.19.0"
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.31"
+
+"@codemirror/closebrackets@^0.19.0":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/closebrackets/-/closebrackets-0.19.1.tgz#c93219d6800c27a880e569135b468cf4a05d903f"
+  integrity sha512-ZiLXT6u+VuBK5QnfBbt/Vmfd9Pg6449wn1DIOWFZHUOldg5eFn3VGGjYY2XWuHQz5WuK+7dXamV2KE885O1gyA==
+  dependencies:
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/rangeset" "^0.19.0"
+    "@codemirror/state" "^0.19.2"
+    "@codemirror/text" "^0.19.0"
+    "@codemirror/view" "^0.19.44"
+
+"@codemirror/commands@^0.19.0":
+  version "0.19.8"
+  resolved "https://registry.npmmirror.com/@codemirror/commands/-/commands-0.19.8.tgz#1f99c1a8bf200d17c4d6997379099459f3678107"
+  integrity sha512-65LIMSGUGGpY3oH6mzV46YWRrgao6NmfJ+AuC7jNz3K5NPnH6GCV1H5I6SwOFyVbkiygGyd0EFwrWqywTBD1aw==
+  dependencies:
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/matchbrackets" "^0.19.0"
+    "@codemirror/state" "^0.19.2"
+    "@codemirror/text" "^0.19.6"
+    "@codemirror/view" "^0.19.22"
+    "@lezer/common" "^0.15.0"
+
+"@codemirror/comment@^0.19.0":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/comment/-/comment-0.19.1.tgz#7def8345eeb9095ef1ef33676fbde1ab4fe33fad"
+  integrity sha512-uGKteBuVWAC6fW+Yt8u27DOnXMT/xV4Ekk2Z5mRsiADCZDqYvryrJd6PLL5+8t64BVyocwQwNfz1UswYS2CtFQ==
+  dependencies:
+    "@codemirror/state" "^0.19.9"
+    "@codemirror/text" "^0.19.0"
+    "@codemirror/view" "^0.19.0"
+
+"@codemirror/fold@^0.19.0":
+  version "0.19.3"
+  resolved "https://registry.npmmirror.com/@codemirror/fold/-/fold-0.19.3.tgz#de55d44a7313f2a8920aefb6ebf9eff34715d8d4"
+  integrity sha512-8hT+Eq2G68mL0yPRvSD2ewhnLQAX6sbUJmtGVKFcj8oAXtfpYCX8LIcfXsuI19Qs7gZkOSpqZvn+KKj8IhZoAw==
+  dependencies:
+    "@codemirror/gutter" "^0.19.0"
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/rangeset" "^0.19.0"
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.22"
+
+"@codemirror/gutter@^0.19.0", "@codemirror/gutter@^0.19.4":
+  version "0.19.9"
+  resolved "https://registry.npmmirror.com/@codemirror/gutter/-/gutter-0.19.9.tgz#bbb69f4d49570d9c1b3f3df5d134980c516cd42b"
+  integrity sha512-PFrtmilahin1g6uL27aG5tM/rqR9DZzZYZsIrCXA5Uc2OFTFqx4owuhoU9hqfYxHp5ovfvBwQ+txFzqS4vog6Q==
+  dependencies:
+    "@codemirror/rangeset" "^0.19.0"
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.23"
+
+"@codemirror/highlight@^0.19.0":
+  version "0.19.7"
+  resolved "https://registry.npmmirror.com/@codemirror/highlight/-/highlight-0.19.7.tgz#91a0c9994c759f5f153861e3aae74ff9e7c7c35b"
+  integrity sha512-3W32hBCY0pbbv/xidismw+RDMKuIag+fo4kZIbD7WoRj+Ttcaxjf+vP6RttRHXLaaqbWh031lTeON8kMlDhMYw==
+  dependencies:
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/rangeset" "^0.19.0"
+    "@codemirror/state" "^0.19.3"
+    "@codemirror/view" "^0.19.0"
+    "@lezer/common" "^0.15.0"
+    style-mod "^4.0.0"
+
+"@codemirror/history@^0.19.0":
+  version "0.19.2"
+  resolved "https://registry.npmmirror.com/@codemirror/history/-/history-0.19.2.tgz#25e3fda755f77ac1223a6ae6e9d7899f5919265e"
+  integrity sha512-unhP4t3N2smzmHoo/Yio6ueWi+il8gm9VKrvi6wlcdGH5fOfVDNkmjHQ495SiR+EdOG35+3iNebSPYww0vN7ow==
+  dependencies:
+    "@codemirror/state" "^0.19.2"
+    "@codemirror/view" "^0.19.0"
+
+"@codemirror/lang-cpp@^0.19.1":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/lang-cpp/-/lang-cpp-0.19.1.tgz#7b25e85077bf695106d344a2bd790575093a34fb"
+  integrity sha512-BGvZkfcqcalAwxocuE9DhH6gqflm5IjL/8mGTzc8bHzeP1N4innK8qo2G69ohEML4LDZv4WyXc3y4C9/zsGCGQ==
+  dependencies:
+    "@codemirror/highlight" "^0.19.0"
+    "@codemirror/language" "^0.19.0"
+    "@lezer/cpp" "^0.15.0"
+
+"@codemirror/language@^0.19.0":
+  version "0.19.7"
+  resolved "https://registry.npmmirror.com/@codemirror/language/-/language-0.19.7.tgz#9eef8e827692d93a701b18db9d46a42be34ecca6"
+  integrity sha512-pNNUtYWMIMG0lUSKyUXJr8U0rFiCKsKFXbA2Oj17PC+S1FY99hV0z1vcntW67ekAIZw9DMEUQnLsKBuIbAUX7Q==
+  dependencies:
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/text" "^0.19.0"
+    "@codemirror/view" "^0.19.0"
+    "@lezer/common" "^0.15.5"
+    "@lezer/lr" "^0.15.0"
+
+"@codemirror/lint@^0.19.0":
+  version "0.19.3"
+  resolved "https://registry.npmmirror.com/@codemirror/lint/-/lint-0.19.3.tgz#84101d0967fea8df114a8f0f79965c22ccd3b3cc"
+  integrity sha512-+c39s05ybD2NjghxkPFsUbH/qBL0cdzKmtHbzUm0RVspeL2OiP7uHYJ6J5+Qr9RjMIPWzcqSauRqxfmCrctUfg==
+  dependencies:
+    "@codemirror/gutter" "^0.19.4"
+    "@codemirror/panel" "^0.19.0"
+    "@codemirror/rangeset" "^0.19.1"
+    "@codemirror/state" "^0.19.4"
+    "@codemirror/tooltip" "^0.19.5"
+    "@codemirror/view" "^0.19.0"
+    crelt "^1.0.5"
+
+"@codemirror/matchbrackets@^0.19.0":
+  version "0.19.4"
+  resolved "https://registry.npmmirror.com/@codemirror/matchbrackets/-/matchbrackets-0.19.4.tgz#50b5188eb2d53f32598dca906bf5fd66626a9ebc"
+  integrity sha512-VFkaOKPNudAA5sGP1zikRHCEKU0hjYmkKpr04pybUpQvfTvNJXlReCyP0rvH/1iEwAGPL990ZTT+QrLdu4MeEA==
+  dependencies:
+    "@codemirror/language" "^0.19.0"
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.0"
+    "@lezer/common" "^0.15.0"
+
+"@codemirror/panel@^0.19.0":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/panel/-/panel-0.19.1.tgz#bf77d27b962cf16357139e50864d0eb69d634441"
+  integrity sha512-sYeOCMA3KRYxZYJYn5PNlt9yNsjy3zTNTrbYSfVgjgL9QomIVgOJWPO5hZ2sTN8lufO6lw0vTBsIPL9MSidmBg==
+  dependencies:
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.0"
+
+"@codemirror/rangeset@^0.19.0", "@codemirror/rangeset@^0.19.1", "@codemirror/rangeset@^0.19.5":
+  version "0.19.8"
+  resolved "https://registry.npmmirror.com/@codemirror/rangeset/-/rangeset-0.19.8.tgz#f9b572c287bcef08d150b4a539e0128db62b2091"
+  integrity sha512-1vusIkxSD0vK5KQ22JO/4Ejfww5268PgM/CpKNBSpTpWZEFlZbmOPyRiY4HXO2oEzOpypbA/walMiNInWnrT0Q==
+  dependencies:
+    "@codemirror/state" "^0.19.0"
+
+"@codemirror/rectangular-selection@^0.19.0":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/rectangular-selection/-/rectangular-selection-0.19.1.tgz#5a88ece4fb68ce5682539497db8a64fc015aae63"
+  integrity sha512-9ElnqOg3mpZIWe0prPRd1SZ48Q9QB3bR8Aocq8UtjboJSUG8ABhRrbuTZMW/rMqpBPSjVpCe9xkCCkEQMYQVmw==
+  dependencies:
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/text" "^0.19.4"
+    "@codemirror/view" "^0.19.0"
+
+"@codemirror/search@^0.19.0":
+  version "0.19.8"
+  resolved "https://registry.npmmirror.com/@codemirror/search/-/search-0.19.8.tgz#20b5895ad6becd97e0b69b02369d69887ae15255"
+  integrity sha512-mMHx60bzbcbSI8Fu2WbxsGAZ2FCGkzslISsvyJXOxVoB7E+y1LDTBv0HUJ+srmfIsak6ceMxKgyI6RldRPMu5A==
+  dependencies:
+    "@codemirror/panel" "^0.19.0"
+    "@codemirror/rangeset" "^0.19.0"
+    "@codemirror/state" "^0.19.3"
+    "@codemirror/text" "^0.19.0"
+    "@codemirror/view" "^0.19.34"
+    crelt "^1.0.5"
+
+"@codemirror/state@^0.19.0", "@codemirror/state@^0.19.2", "@codemirror/state@^0.19.3", "@codemirror/state@^0.19.4", "@codemirror/state@^0.19.9":
+  version "0.19.9"
+  resolved "https://registry.npmmirror.com/@codemirror/state/-/state-0.19.9.tgz#b797f9fbc204d6dc7975485e231693c09001b0dd"
+  integrity sha512-psOzDolKTZkx4CgUqhBQ8T8gBc0xN5z4gzed109aF6x7D7umpDRoimacI/O6d9UGuyl4eYuDCZmDFr2Rq7aGOw==
+  dependencies:
+    "@codemirror/text" "^0.19.0"
+
+"@codemirror/text@^0.19.0", "@codemirror/text@^0.19.2", "@codemirror/text@^0.19.4", "@codemirror/text@^0.19.6":
+  version "0.19.6"
+  resolved "https://registry.npmmirror.com/@codemirror/text/-/text-0.19.6.tgz#9adcbd8137f69b75518eacd30ddb16fd67bbac45"
+  integrity sha512-T9jnREMIygx+TPC1bOuepz18maGq/92q2a+n4qTqObKwvNMg+8cMTslb8yxeEDEq7S3kpgGWxgO1UWbQRij0dA==
+
+"@codemirror/theme-one-dark@^0.19.1":
+  version "0.19.1"
+  resolved "https://registry.npmmirror.com/@codemirror/theme-one-dark/-/theme-one-dark-0.19.1.tgz#648b9cbe37186a2b7bd2a83fb483dc7aa18ce218"
+  integrity sha512-8gc4c2k2o/EhyHoWkghCxp5vyDT96JaFGtRy35PHwIom0LZdx7aU4AbDUnITvwiFB+0+i54VO+WQjBqgTyJvqg==
+  dependencies:
+    "@codemirror/highlight" "^0.19.0"
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.0"
+
+"@codemirror/tooltip@^0.19.12", "@codemirror/tooltip@^0.19.5":
+  version "0.19.15"
+  resolved "https://registry.npmmirror.com/@codemirror/tooltip/-/tooltip-0.19.15.tgz#cecb59cf155ec5fdcaad26b38f054a2787fb9b9e"
+  integrity sha512-Fb4fKgVziUNSOAhclsvsqHw+1bCfh5po8xT/hw2UQW0UV41t73tJqX5AiqSwmtaDHExN7DFyzG8VQa05d/7g3Q==
+  dependencies:
+    "@codemirror/state" "^0.19.0"
+    "@codemirror/view" "^0.19.0"
+
+"@codemirror/view@^0.19.0", "@codemirror/view@^0.19.22", "@codemirror/view@^0.19.23", "@codemirror/view@^0.19.31", "@codemirror/view@^0.19.34", "@codemirror/view@^0.19.44", "@codemirror/view@^0.19.45":
+  version "0.19.45"
+  resolved "https://registry.npmmirror.com/@codemirror/view/-/view-0.19.45.tgz#fa608ee1412808e2fa555e48658436dd9e309d5c"
+  integrity sha512-wR19UBYvJMeV9axa5Xo6ATbAP1jl30BPFZ5buu3cJjYXwlRhJDjzw2wUbxk1zsR1LtAe5jrRNeWEtGA+IPacxw==
+  dependencies:
+    "@codemirror/rangeset" "^0.19.5"
+    "@codemirror/state" "^0.19.3"
+    "@codemirror/text" "^0.19.0"
+    style-mod "^4.0.0"
+    w3c-keyname "^2.2.4"
 
 "@docsearch/css@3.0.0-alpha.42":
   version "3.0.0-alpha.42"
@@ -1555,6 +1779,25 @@
   version "3.3.1"
   resolved "https://registry.npmmirror.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
   integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
+
+"@lezer/common@^0.15.0", "@lezer/common@^0.15.5":
+  version "0.15.11"
+  resolved "https://registry.npmmirror.com/@lezer/common/-/common-0.15.11.tgz#965b5067036305f12e8a3efc344076850be1d3a8"
+  integrity sha512-vv0nSdIaVCRcJ8rPuDdsrNVfBOYe/4Szr/LhF929XyDmBndLDuWiCCHooGlGlJfzELyO608AyDhVsuX/ZG36NA==
+
+"@lezer/cpp@^0.15.0":
+  version "0.15.2"
+  resolved "https://registry.npmmirror.com/@lezer/cpp/-/cpp-0.15.2.tgz#a08c4d62c64d4fc5325e4a6e4e8770bc90ff656b"
+  integrity sha512-4Ve5LIRCE+VF+XE/cfSSOg6VuTOfh1pU2oxLKJu3XbyYzmSp9IjSZcW/UNcSRtMxM05MQ4/3AR5tUwp9PL4ExA==
+  dependencies:
+    "@lezer/lr" "^0.15.0"
+
+"@lezer/lr@^0.15.0":
+  version "0.15.8"
+  resolved "https://registry.npmmirror.com/@lezer/lr/-/lr-0.15.8.tgz#1564a911e62b0a0f75ca63794a6aa8c5dc63db21"
+  integrity sha512-bM6oE6VQZ6hIFxDNKk8bKPa14hqFrV07J/vHGOeiAbJReIaQXmkVb6xQu4MR+JBTLa5arGRyAAjJe1qaQt3Uvg==
+  dependencies:
+    "@lezer/common" "^0.15.0"
 
 "@mdx-js/mdx@1.6.22", "@mdx-js/mdx@^1.6.21":
   version "1.6.22"
@@ -1980,6 +2223,17 @@
   integrity sha512-NOn5eIcgWLOo6qW8AcuLZ7G8PycXu0xTxxkS6Q18VWFxgPUSOwV0pBj2a/4viNZVu25i7RIB7GttdkAIUUXOOg==
   dependencies:
     "@types/node" "*"
+
+"@uiw/react-codemirror@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.npmmirror.com/@uiw/react-codemirror/-/react-codemirror-4.5.1.tgz#f2af4e761f13b729a3ec7c7c858b34432cdf46a7"
+  integrity sha512-90SNE89uJOQgcZwV0fuZjCgDeH7pjagCqwOcYHvDG5Qedp2nKmb4/2mgDCtLBxTGKxb73ktUOkbdu3L05ck1Yg==
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "@codemirror/basic-setup" "^0.19.1"
+    "@codemirror/state" "^0.19.9"
+    "@codemirror/theme-one-dark" "^0.19.1"
+    "@codemirror/view" "^0.19.45"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -2745,6 +2999,11 @@ clsx@^1.1.1:
   resolved "https://registry.nlark.com/clsx/download/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha1-mLMTT5q73yOyZjSRrOE8XAOnMYg=
 
+codemirror@^5.65.2:
+  version "5.65.2"
+  resolved "https://registry.npmmirror.com/codemirror/-/codemirror-5.65.2.tgz#5799a70cb3d706e10f60e267245e3a75205d3dd9"
+  integrity sha512-SZM4Zq7XEC8Fhroqe3LxbEEX1zUPWH1wMr5zxiBuiUF64iYOUH/JI88v4tBag8MiBS8B8gRv8O1pPXGYXQ4ErA==
+
 collapse-white-space@^1.0.2:
   version "1.0.6"
   resolved "https://registry.npmmirror.com/collapse-white-space/download/collapse-white-space-1.0.6.tgz#e63629c0016665792060dbbeb79c42239d2c5287"
@@ -2961,6 +3220,11 @@ cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
     parse-json "^5.0.0"
     path-type "^4.0.0"
     yaml "^1.10.0"
+
+crelt@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npmmirror.com/crelt/-/crelt-1.0.5.tgz#57c0d52af8c859e354bace1883eb2e1eb182bb94"
+  integrity sha512-+BO9wPPi+DWTDcNYhr/W90myha8ptzftZT+LwcmUbbok0rcP/fequmFYCw8NMoH7pkAZQzU78b3kYrlua5a9eA==
 
 cross-fetch@^3.0.4:
   version "3.1.4"
@@ -6996,6 +7260,11 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.nlark.com/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
+style-mod@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmmirror.com/style-mod/-/style-mod-4.0.0.tgz#97e7c2d68b592975f2ca7a63d0dd6fcacfe35a01"
+  integrity sha512-OPhtyEjyyN9x3nhPsu76f52yUGXiZcgvsrFVtvTkyGRQJ0XK+GPc6ov1z+lRpbeabka+MYEQxOYRnt5nF30aMw==
+
 style-to-object@0.3.0, style-to-object@^0.3.0:
   version "0.3.0"
   resolved "https://registry.nlark.com/style-to-object/download/style-to-object-0.3.0.tgz#b1b790d205991cc783801967214979ee19a76e46"
@@ -7508,6 +7777,11 @@ vfile@^4.0.0:
     is-buffer "^2.0.0"
     unist-util-stringify-position "^2.0.0"
     vfile-message "^2.0.0"
+
+w3c-keyname@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.npmmirror.com/w3c-keyname/-/w3c-keyname-2.2.4.tgz#4ade6916f6290224cdbd1db8ac49eab03d0eef6b"
+  integrity sha512-tOhfEwEzFLJzf6d1ZPkYfGj+FWhIpBux9ppoP3rlclw3Z0BZv3N7b7030Z1kYth+6rDuAsXUFr+d0VE6Ed1ikw==
 
 wait-on@^6.0.0:
   version "6.0.0"

@@ -1,0 +1,62 @@
+/* neo theme for cm */
+
+/* Color scheme */
+
+.cm-theme-light.cm {
+    background-color:#ffffff;
+    color:#2e383c;
+    line-height:1.4375;
+}
+.cm-theme-light .cm-comment { color:#75787b; }
+.cm-theme-light .cm-keyword, .cm-theme-light .cm-property { color:#1d75b3; }
+.cm-theme-light .cm-atom,.cm-theme-light .cm-number { color:#75438a; }
+.cm-theme-light .cm-node,.cm-theme-light .cm-tag { color:#9c3328; }
+.cm-theme-light .cm-string { color:#b35e14; }
+.cm-theme-light .cm-variable,.cm-theme-light .cm-qualifier { color:#047d65; }
+
+
+/* Editor styling */
+
+.cm-theme-light pre {
+    padding:0;
+}
+
+.cm-theme-light .cm-gutters {
+    border:none;
+    border-right:10px solid transparent;
+    background-color:transparent;
+}
+
+.cm-theme-light .cm-linenumber {
+    padding:0;
+    color:#e0e2e5;
+}
+
+.cm-theme-light .cm-guttermarker { color: #1d75b3; }
+.cm-theme-light .cm-guttermarker-subtle { color: #e0e2e5; }
+
+.cm-theme-light .cm-cursor {
+    width: 2px;
+    border: 0;
+    background: rgb(186, 189, 194);
+    z-index: 1;
+}
+
+.cm-focused {
+    outline: none !important;
+}
+.cm-scroller {
+    font-family: JetBrains Mono, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace !important;
+}
+
+/* other css style */
+.t-textarea {
+    margin-top: 16px;
+    margin-left: 16px;
+    width: calc(100% - 32px) !important;
+}
+
+.t-textarea__inner {
+    font-family: JetBrains Mono, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace !important;
+    height: 30vh !important;
+}

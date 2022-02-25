@@ -1,0 +1,24 @@
+.codeinputCard {
+    border-left: 0.15rem solid rgb(12, 125, 157);
+    margin-top: 16px;
+    height: calc(100vh - 180px);
+    overflow: auto;
+}
+
+.codeinput {
+    height: 100%;
+}
+
+.button {
+    font-family: JetBrains Mono, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace !important;
+    width: calc(100% - 32px) !important;
+    margin-left: 16px;
+    margin-top: 16px;
+}
+
+.alert {
+    font-family: JetBrains Mono, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace !important;
+    width: calc(100% - 32px);
+    margin-left: 16px;
+    margin-top: 16px;
+}

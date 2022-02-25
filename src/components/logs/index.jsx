@@ -33,17 +33,13 @@ export default function Logs() {
     }, []);
 
     return (
-        <Layout title="Logs">
-            <link rel="stylesheet" href="https://unpkg.com/tdesign-react/dist/tdesign.min.css" />
-
-            <div style={{ padding: "20px" }}>
-                <h4>Avatar</h4>
-                <List size={'small'}>
-                    {listData.map((content, idx) => (
-                        <ListItem key={idx}>{content}</ListItem>
-                    ))}
-                </List>
-            </div>
-        </Layout>
+        <div style={{ padding: "20px" }}>
+            <h4>Avatar</h4>
+            <List size={'small'}>
+                {listData.map((content, idx) => (
+                    <ListItem key={idx}>{content}</ListItem>
+                ))}
+            </List>
+        </div>
     );
 }
