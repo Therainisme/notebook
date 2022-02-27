@@ -15,7 +15,8 @@ export default function CppRunner() {
     const [buttonText, setButtonText] = useState("SUBMIT");
     const [titleInfo, setTitleInfo] = useState("");
 
-    const client = useMemo(() => {
+    const [client, setClient] = useState(undefined)
+    useEffect(() => {
         const ws = new WebSocket("wss://sandbox-server.therainisme.com");
         ws.onopen = function () {
             console.log("connect server");
@@ -48,7 +49,7 @@ export default function CppRunner() {
         ws.onerror = function (e) {
             console.log(error);
         }
-        return ws;
+        setClient(ws);
     }, [])
 
     function handleSubmit() {
