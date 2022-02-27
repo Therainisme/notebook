@@ -9,14 +9,14 @@ import './neo.css';
 
 export default function CppRunner() {
     const [text, setText] = useState(cppinit);
-    const [stdin, setStdin] = useState("");
+    const [stdin, setStdin] = useState("Hello,World!");
     const [stdout, setStdout] = useState("You haven't submitted.");
     const [alertTheme, setAlertTheme] = useState("info");
     const [buttonText, setButtonText] = useState("SUBMIT");
     const [titleInfo, setTitleInfo] = useState("");
 
     const client = useMemo(() => {
-        const ws = new WebSocket("ws://172.23.9.192:7777/sandbox");
+        const ws = new WebSocket("wss://sandbox-server.therainisme.com");
         ws.onopen = function () {
             console.log("connect server");
         }
@@ -52,7 +52,10 @@ export default function CppRunner() {
     }, [])
 
     function handleSubmit() {
-        client.send(text);
+        client.send(JSON.stringify({
+            code : text,
+            stdin : stdin
+        }));
         setButtonText(
             <Loading text="Running" style={{ color: "white" }}></Loading>
         );
@@ -117,8 +120,10 @@ const cppinit = `#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    for (int i = 1; i <= 5; ++ i) {
-        cout << "hello world!" << endl;
+    string s;
+    for (int i = 1; i <= 1; ++ i) {
+        cin >> s;
+        cout << s << endl;
     }
 
     return 0;

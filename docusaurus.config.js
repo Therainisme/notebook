@@ -88,6 +88,12 @@ const config = {
                         position: "left"
                     },
                     {
+                        to: "/experiment",
+                        activeBasePath: '/experiment',
+                        label: "Experiment",
+                        position: "right"
+                    },
+                    {
                         href: 'https://github.com/therainisme',
                         label: 'GitHub',
                         position: 'right',

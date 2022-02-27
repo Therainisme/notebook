@@ -23,7 +23,7 @@ const { Aside } = TLayout;
 
 export default function Experiment() {
     const [site, setSite] = useState(<CppRunner />);
-    const [memuActive, setMemuActive] = useState("logs");
+    const [memuActive, setMemuActive] = useState("cpp-runner");
 
     function switchLogs() {
         setSite(<Logs />);
