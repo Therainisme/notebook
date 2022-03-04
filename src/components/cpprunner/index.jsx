@@ -3,9 +3,13 @@ import { Row, Col, Textarea, Button, Alert, Loading } from 'tdesign-react';
 import styles from "./index.module.css";
 
 import CodeMirror from '@uiw/react-codemirror';
+import { Prec, EditorState, Compartment } from "@codemirror/state";
+import { keymap } from "@codemirror/view";
+import { insertNewlineAndIndent, indentWithTab  } from "@codemirror/commands";
+import { indentUnit } from "@codemirror/language"
+
 import { cpp } from '@codemirror/lang-cpp';
 import './neo.css';
-
 
 export default function CppRunner() {
     const [text, setText] = useState(cppinit);
@@ -24,19 +28,14 @@ export default function CppRunner() {
         ws.onmessage = function (e) {
             const response = JSON.parse(e.data)
             console.log(response);
+            const {memory, time, output, error, errorType} = response
             setButtonText("SUBMIT");
-            if (!!response.execResult.output) {
-                setStdout(response.execResult.output);
+            if (!errorType) {
+                setStdout(output);
                 setAlertTheme("info");
-                setTitleInfo(`memory: ${getMB(response.execResult.memory)} time: ${getTime(response.execResult.time)}ms`);
-            } else if (!!response.execResult.error) {
-                setStdout(response.execResult.error);
-                setAlertTheme("error");
-            } else if (!!response.compileResult.msg) {
-                setStdout(response.compileResult.msg);
-                setAlertTheme("error");
-            } else if (!!response.compileResult.error) {
-                setStdout(response.compileResult.error);
+                setTitleInfo(`memory: ${getMB(memory)} time: ${getTime(time)}ms`);
+            } else if (!!error) {
+                setStdout(error);
                 setAlertTheme("error");
             } else {
                 setStdout("unknown error");
@@ -54,8 +53,8 @@ export default function CppRunner() {
 
     function handleSubmit() {
         client.send(JSON.stringify({
-            code : text,
-            stdin : stdin
+            code: text,
+            stdin: stdin
         }));
         setButtonText(
             <Loading text="Running" style={{ color: "white" }}></Loading>
@@ -88,7 +87,7 @@ export default function CppRunner() {
                                 <div>
                                     {
                                         Array.from(stdout).map(((x, idx) => {
-                                            if (x === "\n") return <br key={idx}/>;
+                                            if (x === "\n") return <br key={idx} />;
                                             else return x;
                                         }))
                                     }
@@ -104,8 +103,12 @@ export default function CppRunner() {
                             width={"calc(57vw)"}
                             className={styles.codeinput}
                             value={text}
-                            extensions={[cpp()]}
+                            extensions={[
+                                cpp(),
+                                indentUnit.of('    '),
+                            ]}
                             onChange={(value, viewUpdate) => {
+                                console.log(viewUpdate);
                                 setText(value);
                             }}
                         />

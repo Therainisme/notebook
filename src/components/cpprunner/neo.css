@@ -60,3 +60,7 @@
     font-family: JetBrains Mono, source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace !important;
     height: 30vh !important;
 }
+
+.cm-lineNumbers {
+    user-select: none;
+}
