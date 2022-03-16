@@ -76,7 +76,7 @@ const config = {
                         position: "left"
                     },
                     {
-                        to: "/docs/algorithm/每日一题",
+                        to: "/docs/algorithm/杂题记录",
                         activeBasePath: '/docs/algorithm',
                         label: "Algorithm",
                         position: "left"
