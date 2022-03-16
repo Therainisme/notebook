@@ -12,12 +12,35 @@ import { cpp } from '@codemirror/lang-cpp';
 import './neo.css';
 
 export default function CppRunner() {
-    const [text, setText] = useState(cppinit);
-    const [stdin, setStdin] = useState("Hello,World!");
+    const [text, setText] = useState();
+    const [stdin, setStdin] = useState();
     const [stdout, setStdout] = useState("You haven't submitted.");
     const [alertTheme, setAlertTheme] = useState("info");
     const [buttonText, setButtonText] = useState("SUBMIT");
     const [titleInfo, setTitleInfo] = useState("");
+
+    useEffect(() => {
+        text && localStorage.setItem("cpptext", text);
+    }, [text]);
+
+    useEffect(() => {
+        stdin && localStorage.setItem("stdin", stdin);
+    }, [stdin]);
+
+    useEffect(() => {
+        const cpptext = localStorage.getItem("cpptext");
+        if (cpptext) {
+            setText(cpptext);
+        } else {
+            setText(cppinit);
+        }
+        const stdin = localStorage.getItem("stdin");
+        if (stdin) {
+            setStdin(stdin);
+        } else {
+            setStdin("Hello,World!");
+        }
+    }, []);
 
     const [client, setClient] = useState(undefined)
     useEffect(() => {
@@ -108,7 +131,6 @@ export default function CppRunner() {
                                 indentUnit.of('    '),
                             ]}
                             onChange={(value, viewUpdate) => {
-                                console.log(viewUpdate);
                                 setText(value);
                             }}
                         />
