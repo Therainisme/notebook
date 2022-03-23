@@ -120,24 +120,22 @@ omf install https://github.com/edc/bass
 nvm install 12.18.3
 ```
 
-## 静态资源部署 [Caddy](https://github.com/caddyserver/caddy)
+## Install Go
 
-[具体食用的方式可以点击这里](/docs/notype/linux/caddy)
-
-1. 在终端运行以下命令以添加存储库
+进入官方下载页面查看可下载的版本号 [下载页面](https://go.dev/dl)
 
 ```shell
-echo "deb [trusted=yes] https://apt.fury.io/caddy/ /" | sudo tee -a /etc/apt/sources.list.d/caddy-fury.list
+wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local
 ```
 
-2. 更新 apt 缓存
+通过添加下面的行 `/etc/profile` 文件（系统范围内安装）
 
 ```shell
-sudo apt update
+export PATH=$PATH:/usr/local/go/bin
 ```
 
-3. 使用以下命令安装 Caddy
+保存文件，重新加载 PATH 环境变量
 
 ```shell
-sudo apt install caddy
+source /etc/profile
 ```
