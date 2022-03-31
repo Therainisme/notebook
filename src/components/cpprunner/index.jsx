@@ -133,6 +133,13 @@ export default function CppRunner() {
                             onChange={(value, viewUpdate) => {
                                 setText(value);
                             }}
+                            onKeyUp={(e) => {
+                                if (e.ctrlKey && e.altKey && e.key === "n") {
+                                    if (buttonText === "SUBMIT") {
+                                        handleSubmit();
+                                    }
+                                }
+                            }}
                         />
                     </div>
                 </Col>
