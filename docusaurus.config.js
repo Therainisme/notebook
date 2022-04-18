@@ -36,6 +36,7 @@ const config = {
                     editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
                     remarkPlugins: [math],
                     rehypePlugins: [katex],
+                    blogSidebarCount: "ALL",
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
