@@ -4,6 +4,67 @@ authors: [Therainisme]
 tags: [Algorithm]
 ---
 
+## 2 编程模型
+
+计算读取一组 key/value 键值对，然后输出一组 key/value 键值对。MapReduce 库的用户将计算表示为两个函数：Map 和 Reduce。
+
+Map，由用户编写，获取一个输入的键值对然后输出一组中间的 key/value 键值对。MapReduce 库将所有相同与中间 key I 相关联的 value 分组，并并传递它们给 Reduce 函数。
+
+Reduce 函数也由用户编写，它接受一个中间键 I 和它的一组 value。它将这些 value 合并在一起，形成一个更小的 value 的集合。一般来说，每次调用 Reduce 都只会产生 0 或 一个输出值。通过迭代器，中间 value 会提供给用户的 reduce 函数。这样能让我们去处理太大导致无法放进内存的 value 列表。
+
+### 2.1 样例
+
+假设现在需要从大量文档中计算每一个字母出现次数的问题。用户将编写类似下面的伪代码。
+
+```cpp
+map(String key, String value):
+    // key: document name
+    // value: document contents
+    for each word w in value:
+        EmitIntermediate(w, "1");
+
+reduce(String key, Iterator values):
+    // key: a word
+    // values: a list of counts
+    int result = 0;
+    for each v in values:
+        result += ParseInt(v);
+    Emit(AsString(result));
+```
+
+Map 函数返回每个单词加上它出现的次数（在这个简单的例子中只是1）。Reduce 函数将一个特定的单词的所有数相加起来。
+
+此外，用户编写代码来实现一个符合 MapReduce 规范的对象，它好书输入输出文件的名称和可选的调优参数。然后用户调用 MapReduce 函数，传递该对象给它。用户的代码就和 MapReduce 的库（C++实现）连接在了一起。附录 A 包含了这个例子的完整代码。
+
+### 2.2 类型
+
+尽管前面的伪代码是以字符串输入输出来写的，概念上来说，用户提供的 map 和 reduce 函数是关联类型的。
+
+```cpp
+map     (k1, v1)        -->  list(k2, v2)
+reduce  (k2, list(v2))  -->  list(v2)
+```
+
+也就是说，输入键和输出键均来自不同的域。此外，中间的键值来自同一个域。
+
+我们C++的实现将字符串传递给用户定义的函数，并让用户代码在字符串和适当类型之间进行转换。
+
+### 2.3 更多的实例
+
+这里有几个有趣程序作为简单的例子，可以很容易地表示 MapReduce 计算。
+
+**Distributed Grep**: map 函数如果匹配了所提供的模式，就会返回一行。reduce 函数是一个认证函数，它只是将提供的中间数据复制到输出端。
+
+**Count of URL Access Frequency**: map 函数处理网页请求的日志，并输出 <URL，1\>。reduce 函数将同一 URL 的所有值相加，并输出一个 <URL, total count\>对。
+
+**Reverse Web-Link Graph**: map 函数为每一个页面 source 的标签中的 target URL 输出 <target,source\>对。reduce 函数将所有与给定 target URL 相关联的源 URL 的列表串联起来，然后输出对：<target, list(source)\>
+
+**Term-Vector per Host**: 术语向量将一个文件或一组文件中出现的最重要的词总结为一个<word，frequency\> 对的列表。然后 map 函数为每个输入的文档返回一个<hostname, term vector\>对（其中hostname是从文档的URL中提取的）。reduce函数接受一个给定的主机的每一个文档术语向量。它把这些术语向量加在一起，剔除不常用的术语，然后返回一个最终的 <hostname, term vector\>对。
+
+**Inverted Index**: map 函数解析每个文档，并返还一系列的 <word, document ID\>对。reduce 函数接受给定 word 的所有词对，并将对相应的文档 ID 进行排序，并返回一个<word,list(document ID)\>对。这些 word 对的倒置对形成一个简单的反向索引。很容易对这种计算进行增强，以保持对单词位置的跟踪。
+
+**Distributed Sort**: map 函数从每条记录中提取关键字，并返还一个 <key，record\>对。而 reduce 函数不对这些键值对改变直接返回。这种计算依赖于第4.1节中描述的分区设施和第4.2节中描述的排序属性。
+
 ![](./image/2022-04-18-22-31-18.png)
 
 ## 3 实现
@@ -68,6 +129,20 @@ MapReduce 能够应对大规模的 worker 故障。例如，在一次 MapReduce 
 
 假设有 map 任务 $M$ 和 reduce 任务 $R_1$ 和 $R_2$。令 $e(R_i)$ 是 $R_i$ 已经提交的执行（正好有一个这样的执行）。较弱的语义产生了，因为 $e(R_1)$ 可能从一个执行的 M 中读取了 map 的输出，然后 $e(R_2)$ 可能会从另一个不同执行的 M 中读取了 map 的输出。
 
-### 3.4 本地性
+### 3.4 定位
 
 在我们的计算环境中，带宽是一个相对稀缺的环境。事实上，我们通过将这些输入数据（由 GFS$^{[8]}$ 管理）储存在这些机器的本地磁盘上，从而节省网络带宽。GFS 将每个文件分成了 64MB 大小的块，并且将这些块的副本（通常是 3 副本）储存在不同的机器上。MapReduce master 会考虑这些输入文件的位置信息，并尝试在包含相关输入数据副本的机器上分配 map 任务。如果失败，它会尝试在该任务的输入数据副本附近的机器上分配 map 任务（例如，在与该数据副本储存的机器处于同一交换机的 worker 机器上）。当集群中相当大一部分 worker 执行大型 MapReduce 操作时，大多数输入的数据从本地读取，不消耗网络带宽。
+
+### 3.5 任务颗粒度
+
+如上所述，我们将 map 阶段细分成 M 片，将 reduce 阶段细分成 R 片。理想情况下，M 和 R 的数量应该比 worker 机器的数量要大得多。让每个 worker 执行不同的任务可以改善动态负载平衡，也可以在一个 woker 故障时加速恢复速度：它完成的许多 map 任务可以分散到其他的 worker 机器上。
+
+在我们的实现中，M 和 R 的数量可以有明确的限制，因为 master 必须调度 O(M + R) 次，并在内存中储存 O(M \* R) 个状态，就像上面说的一样。（然而，内存使用的常数因数一般很少：状态的 O(M \* R) 个部分，每个 map task/reduce task 对只占大约1字节数据）
+
+此外，R 的数量通常由用户限制，因为每个 reduce 任务的最终输出都会在一个单独的输出文件上。在实践中，我们倾向于选择合适 M，使每一个独立的任务的输入数据大致在 16MB 到 64MB（这样上面描述定位优化是最有效的），然后让 R 的数量是我们预期使用 worker 数量的一个比较小的倍数。我们通常在 2000 个 worker 机器上执行 M = 200,200 且 R = 5,000 的 MapReduce 计算。
+
+### 3.6 备份任务
+
+加长 MapReduce 的总操作时间的常见原因之一是“滞留者”：在计算即将完成的最后几个 map 或 reduce 任务，机器需要花费较长的时间在上面。“滞留者”的出现有许多原因。例如，一个磁盘不好的机器可能会经常出现可纠正型错误，使其读取性能从 30MB/s 减少到 1MB/s。集群调度系统可能在该机器上调度了其他的任务，机器由于 CPU、内存、本地磁盘和网络带宽的竞争而导致 MapRedcue 代码执行更慢。我们最近遇到的一个 bug 发生在机器初始化代码时，它导致处理器缓存失效：受影响的机器计算速度降低了100倍以上。
+
+我们有一个通用的机制来减缓滞留问题。当一个 MapReduce 操作快要完成时，master 会对剩余的正在进行中的任务进行备份执行。当最初的任务或备份的任务完成时，该任务就被标记完成。我们对这种机制进行了调整，使该操作通常增加消耗的计算资源不超过百分之一。我们发现，这样使大型 MapReduce 任务消耗的时间大大减少了。作为一个例子，在5.3节描述的排序程序中，当备份任务机制被禁用时，完成该程序需要多花费44%。
