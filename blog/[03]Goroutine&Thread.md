@@ -2,6 +2,7 @@
 title: Goroutine 和线程
 authors: [Therainisme]
 tags: [Go]
+date: 2022-2-8
 ---
 
 goroutine 和操作系统的线程实际上只是一个量的区别，但量变会引起质变的道理同样适用于 goroutine 和 thread。

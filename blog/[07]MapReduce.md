@@ -2,6 +2,7 @@
 title: MapReduce
 authors: [Therainisme]
 tags: [Algorithm]
+date: 2022-4-17
 ---
 
 > [MapReduce: Simplified Data Processing on Large Cluster](https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/mapreduce-osdi04.pdf) 的部分翻译

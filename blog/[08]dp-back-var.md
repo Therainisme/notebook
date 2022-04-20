@@ -2,6 +2,7 @@
 title: 背包问题的另一种枚举方式
 authors: [Therainisme]
 tags: [Algorithm, 动态规划, 背包问题]
+date: 2022-4-19
 ---
 
 > 题目来源：2022年团体程序设计天梯赛-模拟赛：[L3-2 拼题A打卡奖励 (30 分)](https://pintia.cn/problem-sets/1515872875097792512/problems/1515873015665696781)

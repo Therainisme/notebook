@@ -2,6 +2,7 @@
 title: 字符串哈希
 authors: [Therainisme]
 tags: [Algorithm]
+date: 2022-2-19
 ---
 
 全称字符串前缀哈希法，把字符串变成一个 p 进制数字（哈希值），实现不同的字符串映射到不同的数字。

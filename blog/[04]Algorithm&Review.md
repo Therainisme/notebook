@@ -1,4 +1,9 @@
-# Algorithm & Review
+---
+title: Algorithm & Review
+authors: [Therainisme]
+tags: [Algorithm]
+date: 2022-2-15
+---
 
 ### 前缀和 & 差分
 

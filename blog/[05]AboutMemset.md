@@ -2,6 +2,7 @@
 title: 关于 0x3f3f3f3f 与 memset(a, 0x3f, sizeof a)
 authors: [Therainisme]
 tags: [Algorithm]
+date: 2022-2-18
 ---
 
 在算法题中，一般无穷大常量取值可以是 0x3f3f3f3f。
