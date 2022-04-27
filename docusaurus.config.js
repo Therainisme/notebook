@@ -83,6 +83,12 @@ const config = {
                         position: "left"
                     },
                     {
+                        to: "/docs/microservices/microservicing-strategy",
+                        activeBasePath: '/docs/microservices',
+                        label: "Microservices",
+                        position: "left"
+                    },
+                    {
                         to: "/docs/notype/linux/ubuntu",
                         activeBasePath: '/docs/notype',
                         label: "Notype",
