@@ -64,12 +64,12 @@ const config = {
                         label: 'Blog',
                         position: 'left'
                     },
-                    {
-                        to: "/docs/golang/GETRequest",
-                        activeBasePath: '/docs/golang',
-                        label: "Golang",
-                        position: "left",
-                    },
+                    // {
+                    //     to: "/docs/golang/GETRequest",
+                    //     activeBasePath: '/docs/golang',
+                    //     label: "Golang",
+                    //     position: "left",
+                    // },
                     {
                         to: "/docs/react/hooks",
                         activeBasePath: '/docs/react',
@@ -82,12 +82,12 @@ const config = {
                         label: "Algorithm",
                         position: "left"
                     },
-                    {
-                        to: "/docs/microservices/microservicing-strategy",
-                        activeBasePath: '/docs/microservices',
-                        label: "Microservices",
-                        position: "left"
-                    },
+                    // {
+                    //     to: "/docs/microservices/microservicing-strategy",
+                    //     activeBasePath: '/docs/microservices',
+                    //     label: "Microservices",
+                    //     position: "left"
+                    // },
                     {
                         to: "/docs/notype/linux/ubuntu",
                         activeBasePath: '/docs/notype',
