@@ -89,7 +89,7 @@ const config = {
                         position: "left"
                     },
                     {
-                        to: "/docs/notype/linux/ubuntu",
+                        to: "/docs/notype/messy/about-http",
                         activeBasePath: '/docs/notype',
                         label: "Notype",
                         position: "left"
