@@ -89,6 +89,12 @@ const config = {
                         position: "left"
                     },
                     {
+                        to: "/docs/middleware/redis/datatype",
+                        activeBasePath: '/docs/middleware/',
+                        label: "Middleware",
+                        position: "left"
+                    },
+                    {
                         to: "/docs/notype/messy/about-http",
                         activeBasePath: '/docs/notype',
                         label: "Notype",
