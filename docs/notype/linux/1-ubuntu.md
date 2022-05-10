@@ -149,3 +149,21 @@ export PATH=$PATH:/usr/local/go/bin
 ```shell
 source /etc/profile
 ```
+
+## Zerotier（特别是 WSL2）
+
+```
+curl -s https://install.zerotier.com | sudo bash
+```
+
+启动
+
+```
+sudo zerotier-one -d
+```
+
+加入
+
+```
+sudo zerotier-cli join <network id>
+```
