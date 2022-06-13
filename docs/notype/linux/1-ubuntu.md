@@ -125,7 +125,8 @@ nvm install 12.18.3
 进入官方下载页面查看可下载的版本号 [下载页面](https://go.dev/dl)
 
 ```shell
-wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | sudo tar -xz -C /usr/local
+sudo sh -c "wget -c https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz -O - | tar -xz -
+C /usr/local"
 ```
 
 通过添加下面的行 `/etc/profile` 文件（系统范围内安装）
